@@ -34,7 +34,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel(), Obse
             statusMessage.value = Event("Please enter email")
 
         } else if (inputPassword.value == null) {
-            statusMessage.value = Event("Please enter name")
+            statusMessage.value = Event("Please enter password")
 
         } else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail.value!!).matches()) {
             statusMessage.value = Event("Please enter a correct email address")
