@@ -56,8 +56,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun displayUserList() {
-//        loginViewModel.users.observe(this, Observer {
-//            Log.d("AAA", it.toString())
-//        })
+        loginViewModel.users.observe(this, Observer {
+            Log.d("AAA", it.toString())
+        })
     }
 }

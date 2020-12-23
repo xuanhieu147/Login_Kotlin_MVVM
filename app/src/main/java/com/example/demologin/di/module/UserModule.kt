@@ -1,4 +1,4 @@
-package com.example.demologin.di
+package com.example.demologin.di.module
 
 import com.example.demologin.database.UserDatabase
 import com.example.demologin.database.UserRepository
