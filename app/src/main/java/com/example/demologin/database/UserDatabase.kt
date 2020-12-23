@@ -10,16 +10,16 @@ import com.example.demologin.model.User
 abstract class UserDatabase : RoomDatabase() {
     abstract fun getUserDao(): UserDAO
 
-    companion object {
-        @Volatile
-        private var instance: UserDatabase? = null
-
-        fun getInstance(context: Context): UserDatabase {
-            if (instance == null) {
-                instance =
-                    Room.databaseBuilder(context, UserDatabase::class.java, "UserDatabase").build()
-            }
-            return instance!!
-        }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: UserDatabase? = null
+//
+//        fun getInstance(context: Context): UserDatabase {
+//            if (instance == null) {
+//                instance =
+//                    Room.databaseBuilder(context, UserDatabase::class.java, "UserDatabase").build()
+//            }
+//            return instance!!
+//        }
+//    }
 }

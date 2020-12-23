@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-
+    id 'kotlin-kapt'
 }
 apply plugin: 'kotlin-kapt'
 
@@ -33,7 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 }
@@ -51,6 +51,8 @@ dependencies {
 
     def room_version = "2.2.5"
     def lifecycle_version = "2.2.0"
+    def dagger_version = "2.25.2"
+// room
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -61,4 +63,8 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // dagger 2
+    api "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }

@@ -14,23 +14,32 @@ import com.example.demologin.database.UserDAO
 import com.example.demologin.database.UserDatabase
 import com.example.demologin.database.UserRepository
 import com.example.demologin.databinding.ActivityMainBinding
+import com.example.demologin.di.UserApplication
 import com.example.demologin.viewModel.LoginViewModel
 import com.example.demologin.viewModel.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
     private var loginViewModel: LoginViewModel? = null
 
+    @Inject
+    lateinit var userViewModelFactory: UserViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //  setContentView(R.layout.activity_main)
+        injectDagger()
         init()
         message()
         displayUserList()
         click()
 
 
+    }
+
+    private fun injectDagger() {
+        UserApplication.instance.userComponent.inject(this)
     }
 
     private fun click() {
@@ -85,17 +94,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val dao: UserDAO = UserDatabase.getInstance(application).getUserDao()
-        val repository = UserRepository(dao)
-        val factory = UserViewModelFactory(repository)
-        loginViewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
+        loginViewModel =
+            ViewModelProvider(this, userViewModelFactory).get(LoginViewModel::class.java)
         binding?.userViewModel = loginViewModel
         binding?.lifecycleOwner = this
     }
 
     private fun displayUserList() {
-        loginViewModel?.users?.observe(this, Observer {
-            Log.d("AAA", it.toString())
-        })
+        // loginViewModel?.users?.observe(this, Observer {
+        //  Log.d("AAA", it.toString())
+        // })
     }
 }

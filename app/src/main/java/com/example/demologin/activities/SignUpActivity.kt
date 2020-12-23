@@ -13,26 +13,33 @@ import com.example.demologin.database.UserDatabase
 import com.example.demologin.database.UserRepository
 import com.example.demologin.databinding.ActivityMainBinding
 import com.example.demologin.databinding.ActivitySignUpBinding
+import com.example.demologin.di.UserApplication
 import com.example.demologin.viewModel.LoginViewModel
 import com.example.demologin.viewModel.UserViewModelFactory
+import javax.inject.Inject
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var loginViewModel: LoginViewModel
 
+    @Inject
+    lateinit var userViewModelFactory: UserViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        injectDagger()
         init()
         message()
     }
 
+    private fun injectDagger() {
+        UserApplication.instance.userComponent.inject(this)
+    }
 
     private fun init() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
-        val dao: UserDAO = UserDatabase.getInstance(application).getUserDao()
-        val repository = UserRepository(dao)
-        val factory = UserViewModelFactory(repository)
-        loginViewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
+
+        loginViewModel =
+            ViewModelProvider(this, userViewModelFactory).get(LoginViewModel::class.java)
         binding.userViewModel = loginViewModel
         binding.lifecycleOwner = this
         displayUserList()
@@ -49,8 +56,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun displayUserList() {
-        loginViewModel.users.observe(this, Observer {
-            Log.d("AAA", it.toString())
-        })
+//        loginViewModel.users.observe(this, Observer {
+//            Log.d("AAA", it.toString())
+//        })
     }
 }

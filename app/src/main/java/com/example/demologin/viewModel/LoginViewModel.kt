@@ -15,7 +15,7 @@ import com.example.demologin.viewModel.LoginViewModel as th
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel(), Observable {
 
-    val users = repository.users
+    //val users = repository.users
 
     @Bindable
     val inputEmail = MutableLiveData<String>()

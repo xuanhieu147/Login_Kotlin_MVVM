@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import com.example.demologin.model.User
 
 
-class UserRepository(private val userDao: UserDAO) {
+class UserRepository(userDatabase: UserDatabase) {
 
-    val users = userDao.getAllUser()
-    var loginDatabase : UserDatabase? = null
+    val  userDao: UserDAO = userDatabase.getUserDao()
+  //  var loginDatabase : UserDatabase? = null
 
     suspend fun insertUser(user: User): Long {
         return userDao.insertUser(user)
